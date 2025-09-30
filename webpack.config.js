@@ -3,27 +3,43 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    mode: 'production',
     entry: './src/index.jsx',
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, 'client'),
         filename: 'bundle.js',
-        publicPath: '/Hillel-HW-26.1/',   // ← ВАЖНО: один ведущий слэш, без двойного
-        clean: true,
+        clean: true
     },
     module: {
         rules: [
             {
-                test: /\.(js|jsx)$/, exclude: /node_modules/,
+                test: /\.(js|jsx)$/,
+                exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
                     options: { presets: ['@babel/preset-env', '@babel/preset-react'] }
                 }
             },
-            { test: /\.css$/i, use: ['style-loader', 'css-loader'] },
-        ],
+            { test: /\.css$/i, use: ['style-loader', 'css-loader'] }
+        ]
     },
     resolve: { extensions: ['.js', '.jsx'] },
-    plugins: [new HtmlWebpackPlugin({ template: './public/index.html' })],
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: path.resolve(__dirname, 'src', 'index.html')
+        })
+    ],
     devtool: 'source-map',
+
+    // как на скрине:
+    devServer: {
+        port: 5500,
+        static: {
+            directory: path.join(__dirname, 'client')
+        },
+        devMiddleware: {
+            writeToDisk: true
+        },
+        open: true,
+        historyApiFallback: true
+    }
 };
