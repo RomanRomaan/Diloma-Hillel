@@ -1,6 +1,8 @@
 .header {
     display: flex;
     justify-content: space-between;
+    box-shadow: 1px 4px 4px 0px grey;
+    padding: 10px 20px;
 }
 
 .header .logo {
@@ -19,9 +21,15 @@
 
 .header .logo-text {
     color: #ed6c02;
+
 }
 
 .header .menu {
     display: flex;
     gap: 20px;
+
+}
+
+.logo-btn {
+    text-decoration: none;
 }
